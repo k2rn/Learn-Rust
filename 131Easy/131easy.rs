@@ -1,5 +1,9 @@
 use std::{int, io};
 
+fn check_upper(s1: &str, s2: &str) -> bool {
+	s1.to_ascii().to_upper() == s2.to_ascii().to_owned()
+}
+
 fn main() {
 	let input = io::stdin().read_lines();
 
@@ -13,6 +17,10 @@ fn main() {
 
 	for lines.iter().advance |line| {
 		let words = line.word_iter().collect::<~[&str]>();
-		println(fmt!("%?", words[0]));
+
+		match words[0] {
+			"1" if check_upper(words[1], words[2]) => println("Good test data"),
+			_ => println("Mismatch! Bad test data")
+		}
 	}
 }
