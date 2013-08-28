@@ -1,7 +1,17 @@
-use std::{int, io};
+use std::{int, str, io};
 
 fn check_upper(s1: &str, s2: &str) -> bool {
 	s1.to_ascii().to_upper() == s2.to_ascii().to_owned()
+}
+
+fn check_reverse(s1: &str, s2: &str) -> bool {
+	let mut rev_str = ~"";
+
+	for s1.rev_iter().advance |a| {
+		rev_str = rev_str + str::from_char(a);
+	}
+	
+	rev_str == s2.to_owned()
 }
 
 fn main() {
@@ -19,6 +29,7 @@ fn main() {
 		let words = line.word_iter().collect::<~[&str]>();
 
 		match words[0] {
+			"0" if check_reverse(words[1], words[2]) => println("Good test data"),
 			"1" if check_upper(words[1], words[2]) => println("Good test data"),
 			_ => println("Mismatch! Bad test data")
 		}
