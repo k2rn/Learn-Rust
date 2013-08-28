@@ -12,6 +12,7 @@ fn main() {
 	let lines = input.slice(1, count+1);
 
 	for lines.iter().advance |line| {
-		println(fmt!("%?", line));
+		let words = line.word_iter().collect::<~[&str]>();
+		println(fmt!("%?", words[0]));
 	}
 }
