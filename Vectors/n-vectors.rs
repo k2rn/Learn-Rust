@@ -71,7 +71,7 @@ fn main() {
             ["l", a] => println(fmt!("%.5f", length(vecs[int::from_str(a).unwrap()]))),
             ["n", a] => print_vec_floats(normalize((vecs[int::from_str(a).unwrap()]))),
             ["d", a, b] => println(fmt!("%.5f", dot(vecs[int::from_str(a).unwrap()],
-                                             vecs[int::from_str(b).unwrap()]))),
+                                                    vecs[int::from_str(b).unwrap()]))),
             _ => fail!("Invalid operation")
         }
     }
