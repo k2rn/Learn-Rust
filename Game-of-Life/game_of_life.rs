@@ -1,10 +1,12 @@
+extern mod extra;
 use std::{io, os, uint};
+use extra::time;
 
 fn print_grid(row: &[bool], row_len: uint) -> () {
     print("\x1B[2J\x1B[H"); //Clear the screen
 
     let mut count = 0;
-    for row.iter().advance |x| {
+    for x in row.iter() {
         match *x {
             true => print("x"),
             false => print(".")
@@ -71,7 +73,7 @@ fn check_alive(grid: &[bool], index: uint, row_len: uint) -> bool {
 fn build_grid(input: &str, row_len: uint) -> ~[bool] {
     let mut grid: ~[bool] = ~[];
 
-    for input.iter().advance |c| {
+    for c in input.iter() {
         match c {
             '.' => grid.push(false),
             'x' => grid.push(true),
@@ -84,6 +86,11 @@ fn build_grid(input: &str, row_len: uint) -> ~[bool] {
     }
 
     grid
+}
+
+fn time_between(old: float, new: float) -> float {
+    //Returns elapsed time in nanoseconds
+    new-old
 }
 
 fn main() {
@@ -101,6 +108,8 @@ fn main() {
 
     let mut generation = 0;
 
+    let mut time = time::precise_time_s();
+
     loop {
         print_grid(grid, row_len);
         println(fmt!("Generation: %d", generation));
@@ -117,11 +126,11 @@ fn main() {
 
         grid = new_grid;
 
-        let mut i = 0;
-        while (i < 220000000) {
-            //Stopgap pause measure
-            //TODO: Replace with sleep/timer func
-            i += 1;
+        let mut new_time = time::precise_time_s();
+
+        while time_between(time, new_time) < 0.15 {
+            new_time = time::precise_time_s();
         }
+        time = new_time;
     }
 }

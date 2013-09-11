@@ -12,7 +12,7 @@ impl Instruction {
         let mut v: ~[uint] = ~[];
         let mut a: ~[bool] = ~[];
 
-        for instr.slice(1, instr.len()).iter().advance |arg| {
+        for arg in instr.slice(1, instr.len()).iter(){
             if arg.starts_with("[") {
                 v.push(uint::from_str(arg.trim_chars(& &['[', ']'])).unwrap());
                 a.push(true);
@@ -48,7 +48,7 @@ fn get_offset(a: &[bool]) -> uint {
 fn main() {
     let input = io::stdin().read_lines();
 
-    for input.iter().advance |line| {
+    for line in input.iter() {
         let words = line.word_iter().collect::<~[&str]>();
         let instr = Instruction::new(words);
 
@@ -74,7 +74,7 @@ fn main() {
 
         print(fmt!("0x%.2X ", opcode));
 
-        for instr.vals.iter().advance |val| {
+        for val in instr.vals.iter() {
             print(fmt!("0x%.2X ", *val));
         }
 

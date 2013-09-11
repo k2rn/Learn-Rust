@@ -7,8 +7,8 @@ fn check_upper(s1: &str, s2: &str) -> bool {
 fn check_reverse(s1: &str, s2: &str) -> bool {
     let mut rev_str = ~"";
 
-    for s1.rev_iter().advance |a| {
-        rev_str = rev_str + str::from_char(a);
+    for c in s1.rev_iter() {
+        rev_str = rev_str + str::from_char(c);
     }
     
     rev_str == s2.to_owned()
@@ -25,7 +25,7 @@ fn main() {
 
     let lines = input.slice(1, count+1);
 
-    for lines.iter().advance |line| {
+    for line in lines.iter() {
         let words = line.word_iter().collect::<~[&str]>();
 
         match words[0] {

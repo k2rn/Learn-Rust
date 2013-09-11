@@ -7,7 +7,7 @@ fn make_vec(x: &str) -> ~[float] {
 }
 
 fn print_vec_floats(vec: &[float]) -> () {
-    for vec.iter().advance |x| {
+    for x in vec.iter() {
         print(fmt!("%.5f ", *x));
     }
 
@@ -20,19 +20,17 @@ fn dot(vec1: &[float], vec2: &[float]) -> float {
     }
 
     let mut dot: float = 0.0;
-    let mut count = 0;
 
-    while count < vec1.len() {
+    for count in range(0, vec1.len()) {
         //I couldn't figure out how to do this with map and zip
         dot += vec1[count] * vec2[count];
-        count += 1;
     }
 
     dot
 }
 
 fn length(vec: &[float]) -> float {
-    float::sqrt(dot(vec, vec))
+    dot(vec, vec).sqrt()
 }
 
 fn normalize(vec: &[float]) -> ~[float] {
@@ -57,6 +55,7 @@ fn main() {
 
     let ops_start = num_vecs + 1;
     let num_ops; //Number of calculations
+
     match int::from_str(input[ops_start]) {
         Some(x) if x > 0 => num_ops = x as uint,
         _ => fail!("Must have a valid number of lines")
@@ -64,7 +63,7 @@ fn main() {
 
     let op_lines = input.slice(ops_start + 1, ops_start + num_ops + 1);
 
-    for op_lines.iter().advance |line| {
+    for line in op_lines.iter() {
         let op = line.word_iter().collect::<~[&str]>();
 
         match op {
