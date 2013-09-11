@@ -1,5 +1,5 @@
 extern mod extra;
-use std::{io, os, uint};
+use std::{io, os};
 use extra::time;
 
 fn print_grid(row: &[bool], row_len: uint) -> () {
@@ -70,39 +70,37 @@ fn check_alive(grid: &[bool], index: uint, row_len: uint) -> bool {
     }
 }
 
-fn build_grid(input: &str, row_len: uint) -> ~[bool] {
+fn build_grid(input: &[~str], row_len: uint) -> ~[bool] {
     let mut grid: ~[bool] = ~[];
 
-    for c in input.iter() {
-        match c {
-            '.' => grid.push(false),
-            'x' => grid.push(true),
-            _ => {}
+    for line in input.iter() {
+        for c in line.iter() {
+            match c {
+                '.' => grid.push(false),
+                'x' => grid.push(true),
+                _ => {}
+            }
         }
-    }
 
-    if (grid.len() % row_len) != 0 {
-        fail!("Input grid must be rectangular");
+        if line.len() != row_len {
+            println("Input lines must all be the same length");
+            fail!();
+        }
     }
 
     grid
 }
 
-fn time_between(old: float, new: float) -> float {
-    //Returns elapsed time in nanoseconds
-    new-old
-}
-
 fn main() {
     let args = os::args();
 
-    if args.len() != 3 {
-        println("Usage: ./game_of_life [File] [Row Length]");
+    if args.len() != 2 {
+        println("Usage: ./game_of_life [File]");
         fail!("Invalid number of arguments");
     }
-    let input = io::read_whole_file_str(&Path(args[1])).unwrap();
+    let input = io::file_reader(&Path(args[1])).unwrap().read_lines();
 
-    let row_len = uint::from_str(args[2]).unwrap();
+    let row_len = input[0].len();
 
     let mut grid = build_grid(input, row_len);
 
@@ -128,7 +126,7 @@ fn main() {
 
         let mut new_time = time::precise_time_s();
 
-        while time_between(time, new_time) < 0.15 {
+        while new_time - time < 0.15 {
             new_time = time::precise_time_s();
         }
         time = new_time;

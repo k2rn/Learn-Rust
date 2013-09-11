@@ -20,13 +20,7 @@ This program computes dot products, unit vectors, and lengths for n-dimensional 
 ####Game of Life
 This is an implementation of Conway's Game of Life that runs in the terminal.
 
-Usage: ./game_of_life [File] [Row Length]  
+Usage: ./game_of_life [File]  
 &nbsp;&nbsp;&nbsp;&nbsp;[File]: Contains the starting grid. x means alive and . means dead.  
-&nbsp;&nbsp;&nbsp;&nbsp;[Row Length]: The number of cells on each row.
     
-I included several example inputs for the program, all of which can be found on the Game of Life's Wikipedia entry  
-Usage:  
-&nbsp;&nbsp;&nbsp;&nbsp;Diehard: ./game_of_life diehard.txt 31  
-&nbsp;&nbsp;&nbsp;&nbsp;Gosper Gun: ./game_of_life gosper_gun.txt 80  
-&nbsp;&nbsp;&nbsp;&nbsp;Pulsar: ./game_of_life pulsar.txt 15
-                  
+I included several example inputs for the program, all sourced from the Game of Life's Wikipedia entry                
